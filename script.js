@@ -66,12 +66,12 @@ function distribuirCartas() {
     let mesa = document.querySelector('.mesa');
     for(i = 0; i < baralho.length; i++) {
         let cartaDom = `
-            <li onclick="vira(this)" class="carta" >
+            <li data-test="card" onclick="vira(this)" class="carta" >
                 <div  class="front lado">
-                    <img src="./img/front.png">
+                    <img data-test="face-down-image" src="./img/front.png">
                 </div>
                 <div class="back lado">
-                    <img src="./img/${baralho[i]}.gif" >
+                    <img data-test="face-up-image" src="./img/${baralho[i]}.gif" >
                 </div>
             </li>
         `

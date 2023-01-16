@@ -1,4 +1,6 @@
 let qntCartas;
+let segundos = 0;
+let qntSegundos;
 let tipoCarta = [
     'bobrossparrot', 
     'explodyparrot', 
@@ -13,6 +15,7 @@ let primeiraCarta;
 let segundaCarta;
 let qntJogadas = 0;
 let qntCartasCorretas = 0;
+
 
 function vira(cartaClicada) {
     if(cartaClicada.classList.contains("click"))  {
@@ -44,10 +47,22 @@ function vira(cartaClicada) {
 function tentarFinalizar() {
     if(qntCartasCorretas === baralho.length) {
         setTimeout(FinalizarJogo, 1000);
+        clearInterval(qntSegundos);
     }
 }
 function FinalizarJogo() {
-    alert(`Você ganhou em ${qntJogadas} jogadas!`)
+    alert(`Você ganhou em ${qntJogadas} jogadas! A duração do jogo foi de ${segundos} segundos!`)
+    querJogarAinda();
+}
+function querJogarAinda() {
+    let JogarNovamente = prompt("Você gostaria de reiniciar a partida?");
+    if(JogarNovamente === "sim"){
+        window.location.reload();
+    }else if(JogarNovamente === "não") {
+        return;
+    } else {
+        querJogarAinda();
+    }
 }
 function desvirar() {
     primeiraCarta.classList.remove("click");
@@ -93,5 +108,11 @@ function perguntaQuantidade () {
         qntCartas = Number(prompt("Digite um número par de 4 a 14"));
     }
     embaralhar();
+    qntSegundos = setInterval(tempo, 1000);
 }
+function tempo() {
+    segundos++;
+    document.querySelector('.tempo').innerHTML = segundos;
+}
+
 perguntaQuantidade()

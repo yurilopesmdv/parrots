@@ -11,6 +11,8 @@ let tipoCarta = [
 let baralho = [];
 let primeiraCarta;
 let segundaCarta;
+let qntJogadas = 0;
+let qntCartasCorretas = 0;
 
 function vira(cartaClicada) {
     if(cartaClicada.classList.contains("click"))  {
@@ -20,6 +22,7 @@ function vira(cartaClicada) {
         return;
     }
     cartaClicada.classList.add("click");
+    qntJogadas += 1;
     if( primeiraCarta === undefined) {
         primeiraCarta = cartaClicada;
     } else {
@@ -29,12 +32,22 @@ function vira(cartaClicada) {
             if(primeiraCarta.innerHTML === segundaCarta.innerHTML) {
                 //acertou//
                 resetPS();
+                qntCartasCorretas += 2;
+                tentarFinalizar();
             } else {
                 //errou//
                 setTimeout(desvirar, 1000);
             }
         }
     } 
+}
+function tentarFinalizar() {
+    if(qntCartasCorretas === baralho.length) {
+        setTimeout(FinalizarJogo, 1000);
+    }
+}
+function FinalizarJogo() {
+    alert(`Você ganhou em ${qntJogadas} jogadas!`)
 }
 function desvirar() {
     primeiraCarta.classList.remove("click");

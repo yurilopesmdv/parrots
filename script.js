@@ -13,12 +13,39 @@ let primeiraCarta;
 let segundaCarta;
 
 function vira(cartaClicada) {
-    cartaClicada.classList.toggle("click");
-    desvirarCarta(cartaClicada);
-}
-function desvirarCarta() {
+    if(cartaClicada.classList.contains("click"))  {
+        return;
+    }
+    if(primeiraCarta !== undefined && segundaCarta !== undefined) {
+        return;
+    }
+    cartaClicada.classList.add("click");
+    if( primeiraCarta === undefined) {
+        primeiraCarta = cartaClicada;
+    } else {
+        if(segundaCarta === undefined) {
+            segundaCarta = cartaClicada;
 
+            if(primeiraCarta.innerHTML === segundaCarta.innerHTML) {
+                //acertou//
+                resetPS();
+            } else {
+                //errou//
+                setTimeout(desvirar, 1000);
+            }
+        }
+    } 
 }
+function desvirar() {
+    primeiraCarta.classList.remove("click");
+    segundaCarta.classList.remove("click");
+    resetPS();
+}
+function resetPS() {
+    primeiraCarta = undefined;
+    segundaCarta = undefined;
+}
+
 function random() {
     return Math.random() -0.5;
 }
